@@ -5,68 +5,86 @@ import java.util.Scanner;
 public class Main {
 
     public static HashMap<String, Double> products = new HashMap<>();
-    public static HashSet<String> cartNames = new HashSet<>();
     public static double totalCost = 0;
-    public static int totalNumberOfItems = 0;
+    public static HashMap<String, Integer> totalNumberOfItems = new HashMap<>();
     public static void main(String[] args) {
-
-
-
-
         boolean running = true;
         while(running){
             printProducts();
             running =  addToCart();
         }
-
-
-
-
-
     }
 
     //Skriv en funktion printProducts som visar en lista med produkter och deras priser.
     public static void printProducts(){
         products.put("coffee", 64.95);
         products.put("milk", 18.95);
+        products.put("bread", 10.95);
         System.out.println("Available products: ");
-        System.out.println(products);
         System.out.println("1 - Coffee: " + products.get("coffee") +  " SEK");
         System.out.println("2 - Milk: " + products.get("milk") + " SEK");
+        System.out.println("3 - Bread: " + products.get("bread") + " SEK");
     }
 
     //Skriv en funktion addToCart som tar produktnamn och pris som argument, och uppdaterar kundkorgen samt den totala kostnaden.
     public static boolean addToCart(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter the number corresponding to the product you would like to add(0 to end): ");
+        System.out.println("Please select items from the menu (10 to view cart, 0 to check-out): ");
         while(!scanner.hasNextInt()){
             scanner.next();
             System.out.println("Please enter an integer!");
         }
         int input = scanner.nextInt();
-        boolean running;
-        if(input != 0){
-            scanner.nextLine();
-            System.out.println("product = " + input);
-            if(input == 1){
-                cartNames.add("Coffee");
-                totalCost += products.get("coffee");
-            }
-
-            running = true;
-        } else{
-            running = false;
+        scanner.nextLine();
+        boolean running = true;
+        String product = "";
+        switch (input){
+            case 0:
+                running = false;
+                viewCart();
+                break;
+            case 1:
+                product = "coffee";
+//                totalCost += products.get("coffee");
+//                totalNumberOfItems.put("Coffee", (totalNumberOfItems.get("Coffee") != null ? totalNumberOfItems.get("Coffee")+1 : 1));
+                break;
+            case 2:
+                product = "milk";
+                break;
+            case 3:
+                product = "bread";
+                break;
+            case 10:
+                viewCart();
+                break;
+            default:
+                System.out.println("Please enter a valid option!");
+        }
+        if (running && input != 10){
+            totalCost += products.get(product);
+            totalNumberOfItems.put(product.toUpperCase(), (totalNumberOfItems.get(product.toUpperCase()) != null ? totalNumberOfItems.get(product.toUpperCase())+1 : 1));
         }
 
-        System.out.println(cartNames);
-        System.out.println(totalCost);
-        System.out.println("----------");
         return running;
     }
 
     //Skriv en funktion viewCart som visar alla produkter i kundkorgen och den totala kostnaden.
     public static void viewCart(){
-
+        if(totalNumberOfItems.isEmpty()) {
+            System.out.println("-----------------------------");
+            System.out.println("Shopping cart is empty!");
+            System.out.println("-----------------------------");
+        }else{
+            System.out.println("-----------------------------");
+            System.out.println("|\t\tShopping cart\t\t|");
+            System.out.println("| Item\t\t\t\tQty\t\t|");
+            for (String key : totalNumberOfItems.keySet()) {
+                System.out.println("| " + key + "  \t\t\t" + totalNumberOfItems.get(key) + "\t\t|");
+            }
+            System.out.println("-----------------------------");
+            System.out.println("| Total:\t\t" + totalCost + " SEK\t|");
+            System.out.println("-----------------------------");
+        }
     }
 
 
