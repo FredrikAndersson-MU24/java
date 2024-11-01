@@ -1,34 +1,62 @@
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
 
+    public static ArrayList<Double> productPrices = new ArrayList<>();
+    public static ArrayList<String> productNames = new ArrayList<>();
+
     public static HashMap<String, Double> products = new HashMap<>();
     public static double totalCost = 0;
-    public static HashMap<String, Integer> totalNumberOfItems = new HashMap<>();
+    public static HashMap<String, Integer> shoppingCart = new HashMap<>();
+
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         boolean running = true;
+        availableProducts();
         while(running){
             printProducts();
-            running =  addToCart();
+            running =  menuSelection(scanner);
         }
+    }
+
+    // En funktion för att sätta upp listor med produkter och deras priser
+    public static void availableProducts(){
+        productNames.add("coffee");
+        productPrices.add(64.95);
+
+        productNames.add("milk");
+        productPrices.add(18.95);
+
+        productNames.add("bread");
+        productPrices.add(10.95);
+
+        productNames.add("cheese");
+        productPrices.add(99.95);
+
+        productNames.add("bacon");
+        productPrices.add(39.95);
     }
 
     //Skriv en funktion printProducts som visar en lista med produkter och deras priser.
     public static void printProducts(){
-        products.put("coffee", 64.95);
-        products.put("milk", 18.95);
-        products.put("bread", 10.95);
         System.out.println("Available products: ");
-        System.out.println("1 - Coffee: " + products.get("coffee") +  " SEK");
-        System.out.println("2 - Milk: " + products.get("milk") + " SEK");
-        System.out.println("3 - Bread: " + products.get("bread") + " SEK");
+        for(int i = 0; i < productNames.size(); i++){
+            System.out.println(i+1 + " - " +productNames.get(i).toUpperCase() + ": " + productPrices.get(i) + " SEK");
+        }
+//        products.put("coffee", 64.95);
+//        products.put("milk", 18.95);
+//        products.put("bread", 10.95);
+//        System.out.println("Available products: ");
+//        System.out.println("1 - Coffee: " + products.get("coffee") +  " SEK");
+//        System.out.println("2 - Milk: " + products.get("milk") + " SEK");
+//        System.out.println("3 - Bread: " + products.get("bread") + " SEK");
     }
 
     //Skriv en funktion addToCart som tar produktnamn och pris som argument, och uppdaterar kundkorgen samt den totala kostnaden.
-    public static boolean addToCart(){
-        Scanner scanner = new Scanner(System.in);
+    public static boolean menuSelection(Scanner scanner){
         System.out.println("Please select items from the menu (10 to view cart, 0 to check-out): ");
         while(!scanner.hasNextInt()){
             scanner.next();
@@ -37,22 +65,111 @@ public class Main {
         int input = scanner.nextInt();
         scanner.nextLine();
         boolean running = true;
-        String product = "";
+
+        if(input == 0){
+            viewCart();
+            running = false;
+        } else if(input == 10){
+            viewCart();
+        } else if(input == -10){
+            if(!shoppingCart.isEmpty()){
+                viewCart();
+                removeFromCart(scanner);
+            }else{
+                System.out.println("Shopping cart is already empty.");
+
+            }
+
+        }else if(input <= productNames.size()){
+            addToCart(input - 1);
+        } else {
+            System.out.println("Please enter a valid number!");
+        }
+
+//        switch (input){
+//            case 0:
+//                running = false;
+//                viewCart();
+//                break;
+//            case 1:
+//                addToCart(input - 1);
+//                break;
+//            case 2:
+//                addToCart(input - 1);
+//                break;
+//            case 3:
+//                addToCart(input - 1);
+//                break;
+//            case 10:
+//                viewCart();
+//                break;
+//            default:
+//                System.out.println("Please enter a valid option!");
+//        }
+        return running;
+    }
+
+    //Skriv en funktion addToCart som tar produktnamn och pris som argument, och uppdaterar kundkorgen samt den totala kostnaden.
+    public static void addToCart(int input){
+        String productToAdd = productNames.get(input).toUpperCase();
+        totalCost += productPrices.get(input);
+        shoppingCart.put(productToAdd, (shoppingCart.get(productToAdd) == null ? 1 : shoppingCart.get(productToAdd) + 1 ));
+//            totalCost += products.get(product);
+//            shoppingCart.put(product.toUpperCase(), (shoppingCart.get(product.toUpperCase()) != null ? shoppingCart.get(product.toUpperCase())+1 : 1));
+    }
+
+    //Skriv en funktion viewCart som visar alla produkter i kundkorgen och den totala kostnaden.
+    public static void viewCart(){
+        DecimalFormat df = new DecimalFormat("0.00");
+        df.setMaximumFractionDigits(2);
+        if(shoppingCart.isEmpty()) {
+            System.out.println("-----------------------------");
+            System.out.println("|  Shopping cart is empty!  |");
+            System.out.println("-----------------------------");
+        }else{
+            System.out.println("-----------------------------");
+            System.out.println("|\t\tShopping cart\t\t|");
+            System.out.println("| Pos\t\tItem\t\tQty\t\t|");
+            for (String key : shoppingCart.keySet()) {
+                int pos = productNames.indexOf(key.toLowerCase()) +1;
+                System.out.println("| " + pos + "\t\t\t" + key + " \t\t" + shoppingCart.get(key) + "\t\t|");
+            }
+            System.out.println("-----------------------------");
+            System.out.println("| Total:\t\t" + df.format(totalCost)  + " SEK\t|");
+            System.out.println("-----------------------------");
+        }
+    }
+
+
+
+
+
+    public static boolean menu(Scanner scanner){
+        System.out.println("What do you want to do?: ");
+        System.out.println("1. Add product");
+        System.out.println("2. Remove product");
+        System.out.println("3. Show all products");
+        System.out.println("4. Checkout");
+        while(!scanner.hasNextInt()){
+            scanner.next();
+            System.out.println("Please enter an integer!");
+        }
+        int input = scanner.nextInt();
+        scanner.nextLine();
+        boolean running = true;
         switch (input){
             case 0:
                 running = false;
                 viewCart();
                 break;
             case 1:
-                product = "coffee";
-//                totalCost += products.get("coffee");
-//                totalNumberOfItems.put("Coffee", (totalNumberOfItems.get("Coffee") != null ? totalNumberOfItems.get("Coffee")+1 : 1));
+                addToCart(input - 1);
                 break;
             case 2:
-                product = "milk";
+                addToCart(input - 1);
                 break;
             case 3:
-                product = "bread";
+                addToCart(input - 1);
                 break;
             case 10:
                 viewCart();
@@ -60,59 +177,46 @@ public class Main {
             default:
                 System.out.println("Please enter a valid option!");
         }
-        if (running && input != 10){
-            totalCost += products.get(product);
-            totalNumberOfItems.put(product.toUpperCase(), (totalNumberOfItems.get(product.toUpperCase()) != null ? totalNumberOfItems.get(product.toUpperCase())+1 : 1));
-        }
-
         return running;
     }
 
-    //Skriv en funktion viewCart som visar alla produkter i kundkorgen och den totala kostnaden.
-    public static void viewCart(){
-        if(totalNumberOfItems.isEmpty()) {
-            System.out.println("-----------------------------");
-            System.out.println("Shopping cart is empty!");
-            System.out.println("-----------------------------");
-        }else{
-            System.out.println("-----------------------------");
-            System.out.println("|\t\tShopping cart\t\t|");
-            System.out.println("| Item\t\t\t\tQty\t\t|");
-            for (String key : totalNumberOfItems.keySet()) {
-                System.out.println("| " + key + "  \t\t\t" + totalNumberOfItems.get(key) + "\t\t|");
-            }
-            System.out.println("-----------------------------");
-            System.out.println("| Total:\t\t" + totalCost + " SEK\t|");
-            System.out.println("-----------------------------");
+
+
+
+
+
+
+
+
+    public static void removeFromCart(Scanner scanner){
+        System.out.println("Please select items you want to remove: ");
+        while(!scanner.hasNextInt()){
+            scanner.next();
+            System.out.println("Please enter an integer!");
         }
+        int input = scanner.nextInt() -1;
+        scanner.nextLine();
+        String productToRemove = productNames.get(input).toUpperCase();
+        totalCost -= shoppingCart.get(productToRemove) * productPrices.get(input);
+        shoppingCart.remove(productToRemove);
+
+
+        // TODO Ta in vilken post som ska tas bort. Multiplicera antalet med styckpris och dra bort detta från totalCost. Ta bort posten från shoppingCart.
+        //
     }
+
+
+
+
+
+
+
+
 
 
 }
 
 
-
-//TODO Skapa ett enkelt program som simulerar ett mycket grundläggande shoppingsystem. Programmet ska innehålla
-// funktionalitet för att visa en produktlista, lägga till produkter till en kundkorg, och visa den totala kostnaden.
-
-// TODO Steg 1: Variabler och datatyper
-//Deklarera några variabler för att representera olika produkter och deras priser (t.ex., int eller double).
-//Skapa variabler för att hålla reda på den totala kostnaden samt antalet produkter i kundkorgen.
-
-// TODO Steg 2: Funktioner
-
-
-//
-// TODO Steg 3: Loopar och villkor
-//Använd en while-loop som låter användaren välja en produkt från listan genom att ange ett nummer. Om användaren anger ett ogiltigt val ska de få ett felmeddelande.
-//Lägg till en möjlighet för användaren att avsluta shoppingen genom att skriva "0".
-//
-// TODO Steg 4: Array/Listor
-//Använd en array eller ArrayList för att lagra produkterna och deras priser.
-//Lägg till alla valda produkter i kundkorgen.
-//
-//
-//
 //
 //Bonus
 //lägg till fler produkter och justera priserna.
