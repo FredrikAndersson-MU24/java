@@ -199,10 +199,7 @@ public class Main {
         String productToRemove = productNames.get(input).toUpperCase();
         totalCost -= shoppingCart.get(productToRemove) * productPrices.get(input);
         shoppingCart.remove(productToRemove);
-
-
-        // TODO Ta in vilken post som ska tas bort. Multiplicera antalet med styckpris och dra bort detta från totalCost. Ta bort posten från shoppingCart.
-        //
+        //TODO Lägg till kontroll att positionen faktiskt finns att ta bort
     }
 
 
