@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +7,48 @@ public class Main {
     public static ArrayList<Integer> numbers = new ArrayList<>();
 
     public static void main(String[] args) {
-        scores();
+        uniqueNumbers();
+    }
+
+    public static void uniqueNumbers(){
+        generateNumbers();
+        checkUniqueNumber();
+    }
+
+    public static void generateNumbers(){
+        for(int i = 0; i < 10; i++){
+            Random random = new Random();
+            numbers.add(random.nextInt(5));
+        }
+        System.out.println("numbers = " + numbers);
+    }
+
+    public static void checkUniqueNumber(){
+        ArrayList<Integer> copyOfNumbers = new ArrayList<>(numbers);
+        copyOfNumbers.sort(Integer::compareTo);
+        System.out.println("copyOfNumbers = " + copyOfNumbers);
+        int uniqueNumber = -1;
+        for(int i = 0 ; i < copyOfNumbers.size() ; i++) {
+                if (i == 0) {
+                    if (!copyOfNumbers.get(i).equals(copyOfNumbers.get(i + 1))) {
+                        uniqueNumber = copyOfNumbers.get(i);
+                    }
+                } else if (i < copyOfNumbers.size() - 1) {
+                    if (!copyOfNumbers.get(i).equals(copyOfNumbers.get(i - 1)) && !copyOfNumbers.get(i).equals(copyOfNumbers.get(i + 1))) {
+                        uniqueNumber = copyOfNumbers.get(i);
+                    }
+                } else  if (!copyOfNumbers.get(i).equals(copyOfNumbers.get(i - 1))) {
+                    uniqueNumber = copyOfNumbers.get(i);
+                }
+            }
+
+            if(uniqueNumber >= 0){
+                System.out.println("The largest unique number is " + uniqueNumber);
+
+            }else {
+                System.out.println("There is no unique number");
+            }
+
     }
 
     public static void scores(){
@@ -59,7 +101,7 @@ public class Main {
     }
 }
 
-//Todo Övning 1: Poängberäkning i en tävling
+//Övning 1: Poängberäkning i en tävling
 //Skapa en enkel applikation som låter användaren mata in poäng för deltagare i en tävling och sedan beräkna och visa genomsnittspoängen och den högsta poängen.
 //
 //Skapa en datastruktur:
@@ -83,5 +125,4 @@ public class Main {
 //*Avslutningsalternativ:
 //Ge användaren möjlighet att avsluta applikationen när de är nöjda med att mata in poäng.
 //
-//Övning 2:
 //Du har en lista av heltal. Din uppgift är att skapa en funktion eller algoritm som hittar det största unika talet i listan. Ett unikt tal är ett tal som bara förekommer en gång i listan. Om det inte finns något unikt tal ska funktionen returnera ett meddelande om detta. Skapa även en funktion som skapar upp en lista med många tal som du kan testa med.
