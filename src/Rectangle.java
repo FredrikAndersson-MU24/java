@@ -49,7 +49,7 @@ public class Rectangle {
 }
 
 
-//todo övning 1
+//övning 1
 //Skapa en klass Rectangle enligt nedan samt skriv ett program som använder din Rectangle klass
 //
 //har tre konstruktörer

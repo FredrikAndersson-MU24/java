@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class App {
 
-    ArrayList<Account> accounts = new ArrayList<Account>();
+    ArrayList<Account> accounts = new ArrayList<>();
 
     public void run(){
 

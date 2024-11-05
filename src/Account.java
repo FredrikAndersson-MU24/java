@@ -38,7 +38,7 @@ public class Account {
 }
 
 
-//todo övning 2.
+// övning 2.
 //Skapa en Account klass som representerar ett bankkonto.Account klassen ska
 //
 //*ha en balance där kontots saldo sparas
