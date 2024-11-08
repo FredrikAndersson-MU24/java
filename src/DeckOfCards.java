@@ -8,8 +8,7 @@ public class DeckOfCards {
     public ArrayList<Cards> newDeckOfCards(){
 //        DeckOfCards deck = new DeckOfCards();
         generateDeckOfCards();
-        ArrayList<Cards> newDeck = shuffleDeck();
-        return newDeck;
+        return shuffleDeck();
     }
 
     public void generateDeckOfCards() {
@@ -31,12 +30,9 @@ public class DeckOfCards {
         int randomIndex;
         ArrayList<Integer> rNumbers = new ArrayList<>();
         for(int i = 0; i < cards.size(); i++){
-            while(true){
+            do {
                 randomIndex = randomNumber.nextInt(cards.size());
-                if(!index.contains(cards.get(randomIndex))){
-                    break;
-                }
-            }
+            } while (index.contains(cards.get(randomIndex)));
             rNumbers.add(randomIndex);
             index.add(cards.get(randomIndex));
         }

@@ -1,6 +1,4 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Game {
     public static ArrayList<Cards> cards = new ArrayList<>();

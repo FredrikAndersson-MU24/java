@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Suits {
-    private ArrayList<String> suits =  new ArrayList<>();
+    private final ArrayList<String> suits =  new ArrayList<>();
 
 
     public void setSuits() {

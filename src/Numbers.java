@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Numbers {
-    private ArrayList<Integer> number = new ArrayList<>();
+    private final ArrayList<Integer> number = new ArrayList<>();
 
     public void generateNumbers(){
 //        ArrayList<Integer> numbers = new ArrayList<>();
