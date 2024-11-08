@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Cards {
     private final String suit;
     private final int number;
