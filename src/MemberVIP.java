@@ -1,13 +1,8 @@
-public class MemberReg extends Member{
+public class MemberVIP extends Member {
 
-    public MemberReg(String name) {
-        super(name, false, 14);
-
+    public MemberVIP(String name) {
+        super(name, true, 28);
     }
-
-
-
-
 
     @Override
     public String toString() {
@@ -18,7 +13,4 @@ public class MemberReg extends Member{
                 "\nlendPeriod: " + lendPeriod +
                 "\nloans: " + loans.toString();
     }
-
-
-
 }

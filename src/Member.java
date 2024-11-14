@@ -23,11 +23,19 @@ public abstract class Member {
                 ", name='" + name + '\'' +
                 ", VIP=" + VIP +
                 ", lendPeriod=" + lendPeriod +
-                ", loans=" + loans +
+                ", loans=" + loans.toString() +
                 '}';
     }
 
     public void lend(Loan loan) {
         loans.add(loan);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Loan> getLoans() {
+        return loans;
     }
 }
