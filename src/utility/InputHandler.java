@@ -1,3 +1,5 @@
+package utility;
+
 import java.util.Scanner;
 
 public class InputHandler {
@@ -17,6 +19,20 @@ public class InputHandler {
             }
             System.out.println("Please enter a number between " + min + " and " + max);
             scanner.nextLine();
+        }
+    }
+
+    public static boolean getBoolean(){
+        while(true){
+            String input = scanner.nextLine();
+            if(input.equalsIgnoreCase("y")){
+                return true;
+            }
+            if(input.equalsIgnoreCase("n")){
+                return false;
+            }
+
+            System.out.println("Please enter a valid option!");
         }
     }
 

@@ -1,6 +1,10 @@
+package enemies;
+
+import items.Item;
+
 import java.util.Random;
 
-public abstract class Enemy extends Character{
+public abstract class Enemy extends Character {
     private Item item;
 
     public Enemy(int health, String name, Item item) {
@@ -22,4 +26,9 @@ public abstract class Enemy extends Character{
     public String toString() {
         return super.getName();
     }
+
+    public Item getItem() {
+        return item;
+    }
+
 }

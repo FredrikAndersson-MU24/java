@@ -1,20 +1,20 @@
-public class GoblinAssassin extends Enemy implements MeleeUnit, RangedUnit{
+package enemies;
+
+import items.Item;
+import items.RangedUnit;
+
+public class GoblinArcher extends Enemy implements RangedUnit {
     private double range;
 
-    public GoblinAssassin(int health, String name, Item item) {
+    public GoblinArcher(int health, String name, Item item) {
         super(health, name, item);
-        this.range = 100;
+        this.range = 50;
     }
 
     @Override
     public  boolean performAction(Character target) {
         super.performAction(target);
         return true;
-    }
-
-    @Override
-    public void meleeAttack(Character target) {
-
     }
 
     @Override
