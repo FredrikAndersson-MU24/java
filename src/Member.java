@@ -8,7 +8,7 @@ public abstract class Member {
     protected boolean VIP;
     protected int lendPeriod;
     protected ArrayList<Loan> loans;
-    private final ArrayList<Integer> ID = new ArrayList<>();
+    private ArrayList<Integer> ID = new ArrayList<>();
 
     public Member(String name, boolean VIP, int lendPeriod) {
         this.memberID = generateID() ;  //String.valueOf(UUID.randomUUID());
@@ -20,17 +20,13 @@ public abstract class Member {
 
 
     public String toString() {
-        return "Member{" +
+        return "Member ToString{" +
                 "memberID='" + memberID + '\'' +
                 ", name='" + name + '\'' +
                 ", VIP=" + VIP +
                 ", lendPeriod=" + lendPeriod +
                 ", loans=" + loans.toString() +
                 '}';
-    }
-
-    public void lend(Loan loan) {
-        loans.add(loan);
     }
 
     public String getName() {

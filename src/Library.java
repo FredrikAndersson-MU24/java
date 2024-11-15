@@ -139,6 +139,7 @@ public class Library{
             for (Media m : medias) {
                 if (m.getTitle().equals(input)) {
                     found = true;
+                    break;
                 }
             }
             if (found) {

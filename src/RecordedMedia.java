@@ -1,5 +1,5 @@
 public class RecordedMedia extends Media {
-    private int length;
+    private final int length;
     public RecordedMedia(String title, int published, int length, boolean available) {
         super(title, published, available);
         this.length = length;
