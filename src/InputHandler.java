@@ -3,6 +3,18 @@ import java.util.Scanner;
 public class InputHandler {
     private static final Scanner scanner = new Scanner(System.in);
 
+    public static boolean getBoolean(){
+        while(true){
+            String strInput = scanner.nextLine();
+            if(strInput.toLowerCase().startsWith("y")){
+                return true;
+            }
+            if(strInput.toLowerCase().startsWith("n")){
+                return false;
+            }
+            System.out.println("Please enter a valid choice. Y/N ");
+        }
+    }
 
 
     public static String getString(){

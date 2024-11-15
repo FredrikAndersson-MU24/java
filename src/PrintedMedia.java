@@ -1,7 +1,6 @@
 public abstract class PrintedMedia extends Media {
     private final int numPages;
 
-
     public PrintedMedia(String title, int published, int numPages) {
         super(title, published, true);
         this.numPages = numPages;
@@ -11,6 +10,7 @@ public abstract class PrintedMedia extends Media {
         return numPages;
     }
 
+    @Override
     public String toString() {
         return  "\nTitle: " + this.getTitle() +
                 "\nPublished: " + this.getPublished() +

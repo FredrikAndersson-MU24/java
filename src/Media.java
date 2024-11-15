@@ -1,7 +1,7 @@
 public abstract class Media {
     private final String title;
     private final int published;
-    private final boolean available;
+    private boolean available;
 
     public Media(String title, int published, boolean available) {
         this.title = title;
@@ -17,11 +17,19 @@ public abstract class Media {
         return published;
     }
 
+    public void setAvailable() {
+        this.available = true;
+    }
+
+    public void setNotAvailable() {
+        this.available = false;
+    }
+
+
     public boolean isAvailable() {
         return available;
     }
 
-    @Override
     public String toString() {
         return "Media{" +
                 "title='" + title + '\'' +
@@ -29,4 +37,5 @@ public abstract class Media {
                 ", available=" + available +
                 '}';
     }
+
 }

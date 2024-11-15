@@ -1,22 +1,19 @@
-public class MemberReg extends Member{
+import java.time.Period;
 
+public class MemberReg extends Member{
+        private Period period = Period.ofWeeks(2);
     public MemberReg(String name) {
-        super(name, false, 14);
+        super(name, false, 2);
 
     }
 
-
-
-
-
     @Override
     public String toString() {
-        return  "\nMemberReg" +
-                "\nmemberID: " + memberID +
-                "\nname: " + name +
-                "\nVIP: " + VIP +
-                "\nlendPeriod: " + lendPeriod +
-                "\nloans: " + loans.toString();
+        return  "\nMember" +
+                "\nMembership ID: " + memberID +
+                "\nName: " + name +
+                "\nLend period: " + lendPeriod + " weeks" +
+                "\nCurrent loans: " + loans.toString();
     }
 
 

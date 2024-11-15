@@ -6,4 +6,8 @@ public class Book extends PrintedMedia {
     }
 
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
