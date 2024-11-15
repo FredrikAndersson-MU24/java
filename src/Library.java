@@ -1,5 +1,3 @@
-import org.w3c.dom.ls.LSOutput;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +15,6 @@ public class Library{
         while(running){
             printMenu();
         }
-
-    }
-
-    public void run(){
-
-            Member mem = new MemberReg("Fred");
-
-            System.out.println(medias.toString());
-
-
 
     }
 
@@ -113,9 +101,7 @@ public class Library{
         members.add(new MemberVIP("Kurt"));
         members.add(new MemberVIP("Ned"));
         members.add(new MemberVIP("Liz"));
-//        members.forEach(System.out::println);
         }
-
 
     public void viewMembership(){
         System.out.println(currentVisitor.toString());
@@ -200,10 +186,7 @@ public class Library{
                 System.out.println("Do you want to enter again? Y/N");
                 running = InputHandler.getBoolean();
             }
-
         }
-
-
     }
 
     public void listBooks(){
@@ -239,18 +222,20 @@ public class Library{
             if(member.getName().equals(input)){
                 isMember = true;
                 break;
-            } else {
-                isMember = false;
-
             }
         }
         if(isMember){
             System.out.println("Welcome back, " + input +"!");
             setCurrentVisitor(input);
         } else {
-            System.out.println("You are not a member yet.");
+            System.out.println("You are not a member yet. \n Do you want to sign up?");
+            boolean signup = InputHandler.getBoolean();
+            if(signup){
+                addNewMember();
+            } else {
+                System.out.println("Good bye!");
+            }
         }
-
     }
 
     public void setCurrentVisitor(String member){
@@ -270,10 +255,23 @@ public class Library{
                 System.out.println("\"" + loan.getTitle() + "\"" + " is late! Last return date " + loan.getEndDate());
                 late = true;
             }
-
         }
         if(!late){
             System.out.println("You have no late returns.");
         }
+    }
+
+    public void addNewMember(){
+        System.out.println("Please enter your name: ");
+        String name = InputHandler.getString();
+        System.out.println("Do you want to sign up for the VIP membership? Y/N ");
+        boolean vip = InputHandler.getBoolean();
+        if (vip) {
+            members.add(new MemberVIP(name));
+        } else {
+            members.add(new MemberReg(name));
+        }
+        setCurrentVisitor(name);
+        System.out.println("Thanks for signing up " + name + "!");
     }
 }
