@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.UUID;
+//import java.util.UUID;
 
 public abstract class Member {
     protected int memberID;
@@ -8,7 +8,7 @@ public abstract class Member {
     protected boolean VIP;
     protected int lendPeriod;
     protected ArrayList<Loan> loans;
-    private ArrayList<Integer> ID = new ArrayList<>();
+    private final ArrayList<Integer> ID = new ArrayList<>();
 
     public Member(String name, boolean VIP, int lendPeriod) {
         this.memberID = generateID() ;  //String.valueOf(UUID.randomUUID());
@@ -64,8 +64,7 @@ public abstract class Member {
         while(true){
             Random rand = new Random();
             int randomID = rand.nextInt(10000);
-            assert ID != null;
-            if (!ID.contains(randomID)) {
+            if (!ID.isEmpty() && !ID.contains(randomID)) {
                 return randomID;
             }
         }

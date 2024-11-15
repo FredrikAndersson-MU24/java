@@ -5,7 +5,6 @@ public class RecordedMedia extends Media {
         this.length = length;
     }
 
-
     public int getLength() {
         return length;
     }

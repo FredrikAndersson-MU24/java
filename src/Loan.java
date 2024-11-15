@@ -1,11 +1,10 @@
 import java.time.LocalDate;
-import java.time.Period;
 
 public class Loan {
-    private String title;
-    private Media item;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private final String title;
+    private final Media item;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     public Loan(String title, Media item, int lendPeriod) {
         this.title = title;
@@ -25,16 +24,8 @@ public class Loan {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Media getItem() {
         return item;
-    }
-
-    public void setItem(Media item) {
-        this.item = item;
     }
 
     public LocalDate getEndDate() {

@@ -1,5 +1,4 @@
 public class MemberVIP extends Member {
-
     public MemberVIP(String name) {
         super(name, true, 4);
     }

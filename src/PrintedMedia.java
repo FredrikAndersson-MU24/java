@@ -17,5 +17,4 @@ public abstract class PrintedMedia extends Media {
                 "\nPage count: " + this.getNumPages() +
                 "\nAvailable: " + (this.isAvailable() ? "Yes" : "No");
     }
-
 }
