@@ -8,7 +8,7 @@ public abstract class Member {
     protected boolean VIP;
     protected int lendPeriod;
     protected ArrayList<Loan> loans;
-    private ArrayList<Integer> ID = new ArrayList<>();
+    private final ArrayList<Integer> ID = new ArrayList<>();
 
     public Member(String name, boolean VIP, int lendPeriod) {
         this.memberID = generateID() ;  //String.valueOf(UUID.randomUUID());
