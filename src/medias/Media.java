@@ -1,3 +1,5 @@
+package medias;
+
 public abstract class Media {
     private final String title;
     private final int published;
@@ -31,7 +33,7 @@ public abstract class Media {
     }
 
     public String toString() {
-        return "Media{" +
+        return "medias.Media{" +
                 "title='" + title + '\'' +
                 ", published=" + published +
                 ", available=" + available +

@@ -1,3 +1,5 @@
+package medias;
+
 public class Magazine extends PrintedMedia {
     protected String publisher;
 

@@ -1,3 +1,5 @@
+package medias;
+
 public class Book extends PrintedMedia {
 
 

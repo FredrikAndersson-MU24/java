@@ -1,3 +1,5 @@
+package medias;
+
 import java.time.LocalDate;
 
 public class Loan {
@@ -30,5 +32,9 @@ public class Loan {
 
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public boolean isLate(){
+        return endDate.isBefore(LocalDate.now());
     }
 }

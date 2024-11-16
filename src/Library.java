@@ -1,3 +1,7 @@
+import medias.*;
+import members.*;
+import utilities.InputHandler;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,17 +9,23 @@ import java.util.List;
 public class Library{
     private final List<Media> medias = new ArrayList<>();
     private final List<Member> members = new ArrayList<>();
-    public static boolean running = true;
+    public static boolean mainMenu = true;
     public static Member currentVisitor;
 
     public Library(){
         initMediaList();
         createMembersList();
-        login();
-        while(running){
-            printMenu();
-        }
+        while(mainMenu){
 
+            run();
+
+        }
+    }
+
+
+
+    public void run(){
+        printMainMenu();
     }
 
     public void initMediaList(){
@@ -45,49 +55,140 @@ public class Library{
         medias.add((new Film("Karl", 1980, 130)));
     }
 
-    public void printMenu(){
+
+    public void printMainMenu(){
         System.out.println("What do you want to do?");
-        System.out.println("1. List all books");
-        System.out.println("2. List all magazines");
-        System.out.println("3. List all films");
-        System.out.println("4. Check my active loans");
-        System.out.println("5. Lend an item");
-        System.out.println("6. Return item");
-        System.out.println("7. Check if I have late returns");
-        System.out.println("8. View my membership details");
-        System.out.println("0. Leave");
-        int choice = InputHandler.getIntInRange(0,8);
+        System.out.println("1. Member login");
+        System.out.println("2. Admin login");
+        System.out.println("0. Quit");
+        int choice = InputHandler.getIntInRange(0,2);
         switch(choice){
             case 1:
-                listBooks();
+                printMemberMenu();
                 break;
             case 2:
-                listMagazines();
-                break;
-            case 3:
-                listFilms();
-                break;
-            case 4:
-                checkLoans();
-                break;
-            case 5:
-                lendItem();
-                break;
-            case 6:
-                returnItem();
-                break;
-            case 7:
-                checkIfLate();
-                break;
-            case 8:
-                viewMembership();
+                printAdminMenu();
                 break;
             case 0:
                 System.out.println("Thank you for visiting the library");
-                running = false;
+                mainMenu = false;
                 break;
 
         }
+    }
+
+
+    public void printAdminMenu(){
+        boolean adminMenu = true;
+        while(adminMenu){
+
+            System.out.println("What do you want to do?");
+            System.out.println("1. List all books");
+            System.out.println("2. List all magazines");
+            System.out.println("3. List all films");
+            System.out.println("4. Add media to the library");
+            System.out.println("5. Check active loans");
+            System.out.println("6. Lend an item");
+            System.out.println("7. Return item");
+            System.out.println("8. Check late returns");
+            System.out.println("9. View all members");
+            System.out.println("10. Add a new member");
+            System.out.println("0. Exit to main menu");
+            int choice = InputHandler.getIntInRange(0,10);
+            switch(choice){
+                case 1:
+                    listBooks();
+                    break;
+                case 2:
+                    listMagazines();
+                    break;
+                case 3:
+                    listFilms();
+                    break;
+                case 4:
+                    addNewMediaMenu();
+                    break;
+                case 5:
+                    checkLoans();
+                    break;
+                case 6:
+                    lendItem();
+                    break;
+                case 7:
+                    returnItem();
+                    break;
+                case 8:
+                    checkIfLate();
+                    break;
+                case 9:
+                    viewAllMembers();
+                    break;
+                case 10:
+                    addNewMemberAsAdmin();
+                    break;
+                case 0:
+                    System.out.println("Exiting to main menu");
+                    adminMenu = false;
+                    break;
+
+            }
+
+        }
+
+    }
+
+
+    public void printMemberMenu(){
+        boolean memberMenu = true;
+
+        login();
+        while(memberMenu){
+
+            System.out.println("What do you want to do?");
+            System.out.println("1. List all books");
+            System.out.println("2. List all magazines");
+            System.out.println("3. List all films");
+            System.out.println("4. Check my active loans");
+            System.out.println("5. Lend an item");
+            System.out.println("6. Return item");
+            System.out.println("7. Check if I have late returns");
+            System.out.println("8. View my membership details");
+            System.out.println("0. Exit to main menu");
+            int choice = InputHandler.getIntInRange(0,8);
+            switch(choice){
+                case 1:
+                    listBooks();
+                    break;
+                case 2:
+                    listMagazines();
+                    break;
+                case 3:
+                    listFilms();
+                    break;
+                case 4:
+                    checkLoans();
+                    break;
+                case 5:
+                    lendItem();
+                    break;
+                case 6:
+                    returnItem();
+                    break;
+                case 7:
+                    checkIfLate();
+                    break;
+                case 8:
+                    viewMembership();
+                    break;
+                case 0:
+                    System.out.println("Exiting to main menu");
+                    memberMenu = false;
+                    break;
+
+            }
+
+        }
+
     }
 
     public void createMembersList(){
@@ -114,15 +215,15 @@ public class Library{
             System.out.println("\nYou have " + currentVisitor.getLoans().size() + " active loans.");
             for(Loan l : currentVisitor.getLoans()){
                 if(l.getItem() instanceof Book){
-                    System.out.println("\nBook: ");
+                    System.out.println("\nmedias.Book: ");
                     System.out.println(l);
                 }
                 if(l.getItem() instanceof Magazine){
-                    System.out.println("\nMagazine: ");
+                    System.out.println("\nmedias.Magazine: ");
                     System.out.println(l);
                 }
                 if(l.getItem() instanceof Film){
-                    System.out.println("\nFilm: ");
+                    System.out.println("\nmedias.Film: ");
                     System.out.println(l);
                 }
             }
@@ -155,8 +256,9 @@ public class Library{
                 }
                 if (index > -1) {
                     System.out.println("index = " + index);
-                    currentVisitor.loans.add(new Loan(input, medias.get(index), currentVisitor.lendPeriod));
+                    currentVisitor.getLoans().add(new Loan(input, medias.get(index), currentVisitor.getLendPeriod()));
                     medias.get(index).setNotAvailable();
+                    runLend = false; // TODO Add possibility to lend more items
                 }
             } else {
                 System.out.println("\nCan not find that item");
@@ -179,7 +281,7 @@ public class Library{
             }
             if(currentVisitor.hasItem(input)){
                 Loan loan = currentVisitor.getLoan(input);
-                currentVisitor.loans.remove(loan);
+                currentVisitor.getLoans().remove(loan);
                 medias.get(index).setAvailable();
                 running = false;
             } else {
@@ -232,7 +334,7 @@ public class Library{
             System.out.println("You are not a member yet. \n Do you want to sign up?");
             boolean signup = InputHandler.getBoolean();
             if(signup){
-                addNewMember();
+                addNewMemberAsMember();
             } else {
                 System.out.println("Good bye!");
             }
@@ -251,8 +353,9 @@ public class Library{
 
     public void checkIfLate(){
         boolean late = false;
-        for(Loan loan : currentVisitor.loans){
-            if(loan.getEndDate().isBefore(LocalDate.now())){
+        for(Loan loan : currentVisitor.getLoans()){
+            if(!loan.isLate()){
+                System.out.println("LATE");
                 System.out.println("\"" + loan.getTitle() + "\"" + " is late! Last return date " + loan.getEndDate());
                 late = true;
             }
@@ -262,17 +365,72 @@ public class Library{
         }
     }
 
-    public void addNewMember(){
-        System.out.println("Please enter your name: ");
+    public void addNewMemberAsAdmin(){
+        String name = addNewMember("Please enter the name of the new member: ",
+                "Should this be a VIP membership? Y/N");
+        System.out.println("Thanks for adding " + name + "!");
+    }
+
+    public void addNewMemberAsMember(){
+        String name = addNewMember("Please enter your name: ", "Do you want to sign up for the VIP membership? Y/N ");
+        setCurrentVisitor(name);
+        System.out.println("Thanks for signing up " + name + "!");
+    }
+
+
+
+
+    public String addNewMember(String enterName, String chooseVIP){
+        System.out.println(enterName);
         String name = InputHandler.getString();
-        System.out.println("Do you want to sign up for the VIP membership? Y/N ");
+        System.out.println(chooseVIP);
         boolean vip = InputHandler.getBoolean();
         if (vip) {
             members.add(new MemberVIP(name));
         } else {
             members.add(new MemberReg(name));
         }
-        setCurrentVisitor(name);
-        System.out.println("Thanks for signing up " + name + "!");
+        return name;
+    }
+
+    public void addNewMediaMenu(){
+        boolean addNewMediaMenu = true;
+        while(addNewMediaMenu){
+            System.out.println("What type of media do you want to add?");
+            System.out.println("1. Book");
+            System.out.println("2. Film");
+            System.out.println("3. Magazine");
+            System.out.println("0. Back");
+            int type = InputHandler.getIntInRange(0,3);
+            switch(type){
+                case 1:
+                    addNewBook();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 0:
+                    addNewMediaMenu = false;
+                    break;
+            }
+        }
+
+    }
+
+    public void addNewBook(){
+        System.out.println("Enter title: ");
+        String title = InputHandler.getString();
+        System.out.println("Enter year of publication(YYYY): ");
+        int published = InputHandler.getFourDigitInt();
+        System.out.println("Enter the number of pages: ");
+        int pages = InputHandler.getInt();
+        medias.add(new Book(title, published, pages));
+        System.out.println("Thanks for adding a new book!");
+    }
+
+
+    public void viewAllMembers(){
+        members.forEach(m -> System.out.println(m.toStringAdmin()));
     }
 }

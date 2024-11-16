@@ -1,3 +1,4 @@
+package utilities;
 import java.util.Scanner;
 
 public class InputHandler {
@@ -23,11 +24,7 @@ public class InputHandler {
 
     public static int getIntInRange(int min, int max){
         while(true){
-            while(!scanner.hasNextInt()){
-                System.out.println("Invalid input! Please enter an integer!");
-                scanner.nextLine();
-            }
-            int input = scanner.nextInt();
+            int input = getInt();
             if(input >= min && input <= max ){
                 scanner.nextLine();
                 return input;
@@ -35,6 +32,26 @@ public class InputHandler {
             System.out.println("Invalid input! Please enter an integer between " + min + " and " + max);
             scanner.nextLine();
         }
+    }
+
+    public static int getFourDigitInt(){
+        while(true){
+            int input = getInt();
+            if(input >= 1000 && input <= 9999){
+                scanner.nextLine();
+                return input;
+            }
+            System.out.println("Invalid input! Please enter a four digit integer!");
+            scanner.nextLine();
+        }
+    }
+
+    public static int getInt(){
+            while(!scanner.hasNextInt()){
+                System.out.println("Invalid input! Please enter an integer!");
+                scanner.nextLine();
+            }
+        return scanner.nextInt();
     }
 
 }

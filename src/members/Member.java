@@ -1,3 +1,7 @@
+package members;
+
+import medias.Loan;
+
 import java.util.ArrayList;
 import java.util.Random;
 //import java.util.UUID;
@@ -8,7 +12,7 @@ public abstract class Member {
     protected boolean VIP;
     protected int lendPeriod;
     protected ArrayList<Loan> loans;
-    private final ArrayList<Integer> ID = new ArrayList<>();
+    private ArrayList<Integer> ID = new ArrayList<>();
 
     public Member(String name, boolean VIP, int lendPeriod) {
         this.memberID = generateID() ;  //String.valueOf(UUID.randomUUID());
@@ -18,19 +22,22 @@ public abstract class Member {
         this.loans = new ArrayList<>();
     }
 
-
-    public String toString() {
-        return "Member ToString{" +
-                "memberID='" + memberID + '\'' +
-                ", name='" + name + '\'' +
-                ", VIP=" + VIP +
-                ", lendPeriod=" + lendPeriod +
-                ", loans=" + loans.toString() +
-                '}';
+    public String toStringAdmin() {
+        return "Member" +
+                "Member ID: " + memberID +
+                ", Name: " + name +
+                ", VIP: " + VIP +
+                ", Lend Period: " + lendPeriod +
+                ", Loans: " + loans.toString() /*+
+                ", Late returns: " + isLate() TODO isLate method*/;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getLendPeriod() {
+        return lendPeriod;
     }
 
     public ArrayList<Loan> getLoans() {
@@ -60,7 +67,7 @@ public abstract class Member {
         while(true){
             Random rand = new Random();
             int randomID = rand.nextInt(10000);
-            if (!ID.isEmpty() && !ID.contains(randomID)) {
+            if (!ID.contains(randomID)) {
                 return randomID;
             }
         }

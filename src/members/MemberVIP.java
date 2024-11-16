@@ -1,17 +1,16 @@
-public class MemberReg extends Member{
-    public MemberReg(String name) {
-        super(name, false, 2);
+package members;
+
+public class MemberVIP extends Member {
+    public MemberVIP(String name) {
+        super(name, true, 4);
     }
 
     @Override
     public String toString() {
-        return  "\nMember" +
+        return  "\nVIP member" +
                 "\nMembership ID: " + memberID +
                 "\nName: " + name +
                 "\nLend period: " + lendPeriod + " weeks" +
                 "\nCurrent loans: " + loans.toString();
     }
-
-
-
 }

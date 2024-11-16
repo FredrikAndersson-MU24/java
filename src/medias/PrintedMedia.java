@@ -1,3 +1,5 @@
+package medias;
+
 public abstract class PrintedMedia extends Media {
     private final int numPages;
 

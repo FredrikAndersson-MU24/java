@@ -1,3 +1,5 @@
+package medias;
+
 public class RecordedMedia extends Media {
     private final int length;
     public RecordedMedia(String title, int published, int length, boolean available) {
